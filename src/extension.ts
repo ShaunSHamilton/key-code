@@ -3,6 +3,7 @@ import { ExtensionContext, commands, window } from "vscode";
 export function activate(context: ExtensionContext) {
   let disposable = commands.registerCommand("key-code.start", (args) => {
     window.showInformationMessage("Key Code Activated");
+    commands.executeCommand("setContext", "key-code.active", true);
   });
 
   context.subscriptions.push(
