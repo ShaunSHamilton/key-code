@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/ShaunSHamilton/key-code/issues"
   },
-  "icon": "images/icon.png",
+  "icon": "images/icon_192x192.png",
   "activationEvents": [
     "onCommand:key-code.start"
   ],
