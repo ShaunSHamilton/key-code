@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #description {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+  </style>
+  <body>
+    <div id="description"></div>
+  </body>
+  <script>
+    const descriptionEl = document.querySelector("#description");
+    window.addEventListener("message", (e) => {
+      const { event, description } = e.data;
+      switch (event) {
+        case "update-description":
+          descriptionEl.innerHTML = description;
+          break;
+        default:
+          break;
+      }
+    });
+  </script>
+</html>
