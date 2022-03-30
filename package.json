@@ -9,6 +9,12 @@
   "author": {
     "name": "Shaun Hamilton"
   },
+  "keywords": [
+    "vscode",
+    "keyboard",
+    "shortcuts",
+    "key-code"
+  ],
   "publisher": "hamilton",
   "categories": [
     "Other"
@@ -28,14 +34,6 @@
   "main": "./dist/extension.js",
   "contributes": {
     "keybindings": [
-      {
-        "key": "ctrl+shift+a",
-        "command": "key-code.keybind",
-        "args": {
-          "key": "ctrl+shift+a"
-        },
-        "when": "key-code.active"
-      },
       {
         "key": "escape escape",
         "command": "key-code.keybind",
@@ -6610,7 +6608,7 @@
     "commands": [
       {
         "command": "key-code.start",
-        "title": "Start"
+        "title": "Key Code: Start"
       }
     ]
   },

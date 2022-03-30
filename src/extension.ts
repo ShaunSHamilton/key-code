@@ -1,7 +1,7 @@
 import { ExtensionContext, commands, window } from "vscode";
 
 export function activate(context: ExtensionContext) {
-  let disposable = commands.registerCommand("key-code.start", (args) => {
+  let disposable = commands.registerCommand("key-code.start", () => {
     window.showInformationMessage("Key Code Activated");
     commands.executeCommand("setContext", "key-code.active", true);
   });
@@ -12,7 +12,7 @@ export function activate(context: ExtensionContext) {
       ({ key, command, text = "" }) => {
         // Extension keybinding takes priority over default keybinding
         // Execute default keybinding
-        window.showInformationMessage(`${key} - ${text}`);
+        window.showInformationMessage(`${key}`);
         if (command) {
           commands.executeCommand(command, text);
         }
@@ -24,5 +24,6 @@ export function activate(context: ExtensionContext) {
 }
 
 export function deactivate() {
+  commands.executeCommand("setContext", "key-code.active", false);
   window.showInformationMessage("Key Code Deactivated");
 }

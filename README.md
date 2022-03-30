@@ -2,6 +2,8 @@
 
 Learn the VSCode shortcut keys.
 
+To use, open the command palette and run the command: `Key Code: Start`
+
 ## Known Issues
 
 Calling out known issues can help limit users opening duplicate issues against your extension.
