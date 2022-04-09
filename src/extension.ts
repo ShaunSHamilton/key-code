@@ -45,12 +45,21 @@ export function activate(context: ExtensionContext) {
     panel.webview.html = getWebviewContent(context.extensionPath);
 
     const createFile = new WorkspaceEdit();
-    createFile.createFile(URI_OF_TEXT_DOCUMENT, {
-      overwrite: true,
-    });
+    createFile.createFile(
+      URI_OF_TEXT_DOCUMENT,
+      {
+        overwrite: true,
+      },
+      { label: "", needsConfirmation: true }
+    );
     workspace.applyEdit(createFile).then(
       (res) => {
         console.log("File created: ", res);
+        if (!res) {
+          window.showErrorMessage(
+            "Unable to create file to run lessons. Permission error."
+          );
+        }
       },
       (reason) => {
         console.warn(reason);
