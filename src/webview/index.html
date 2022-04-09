@@ -15,21 +15,31 @@
       overflow: hidden;
     }
     #description {
-      width: 100px;
-      height: 100px;
+      min-height: 100px;
+      margin: 1rem auto;
+      text-align: center;
+    }
+    #tests {
+      min-height: 100px;
       margin: 0 auto;
+      text-align: center;
     }
   </style>
   <body>
     <div id="description"></div>
+    <div id="tests"></div>
   </body>
   <script>
     const descriptionEl = document.querySelector("#description");
+    const testsEl = document.querySelector("#tests");
     window.addEventListener("message", (e) => {
-      const { event, description } = e.data;
+      const { event, data } = e.data;
       switch (event) {
         case "update-description":
-          descriptionEl.innerHTML = description;
+          descriptionEl.innerHTML = data;
+          break;
+        case "update-tests":
+          testsEl.innerHTML = data;
           break;
         default:
           break;
