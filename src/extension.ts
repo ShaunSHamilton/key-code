@@ -42,7 +42,7 @@ export function activate(context: ExtensionContext) {
     commands.executeCommand("setContext", "key-code.active", true);
 
     panel.webview.html = getWebviewContent(context.extensionPath);
-    appendFile(URI_OF_TEXT_DOCUMENT.fsPath, Buffer.from(""), (err) => {
+    appendFile("key-code.js", Buffer.from(""), (err) => {
       if (err) {
         window.showErrorMessage(err.message);
       }
