@@ -10,8 +10,8 @@ import {
   Position,
   Selection,
 } from "vscode";
-import { readFileSync, appendFile } from "fs";
-import { join } from "path";
+import { readFileSync, appendFile, mkdir } from "fs";
+import { join, dirname } from "path";
 import {
   extractStringFromCode,
   getCmd,
@@ -42,11 +42,27 @@ export function activate(context: ExtensionContext) {
     commands.executeCommand("setContext", "key-code.active", true);
 
     panel.webview.html = getWebviewContent(context.extensionPath);
-    appendFile("./key-code.js", Buffer.from(""), (err) => {
+    // appendFile("./key-code.js", Buffer.from(""), (err) => {
+    //   if (err) {
+    //     window.showErrorMessage(err.message);
+    //   } else {
+    //     runLesson(panel, LESSON);
+    //   }
+    // });
+    const newFileName = "key-code.js";
+    const dir: string = dirname(newFileName);
+
+    await mkdir(dir, { recursive: true }, (err) => {
       if (err) {
         window.showErrorMessage(err.message);
       } else {
-        runLesson(panel, LESSON);
+        appendFile(newFileName, Buffer.from(""), (err) => {
+          if (err) {
+            window.showErrorMessage(err.message);
+          } else {
+            runLesson(panel, LESSON);
+          }
+        });
       }
     });
   });
