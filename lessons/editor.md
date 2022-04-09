@@ -55,21 +55,23 @@ console.log(myCode + " " + yourCode);
 ### --cmd--
 
 ```js
-placeCursor(0, 0);
+// placeCursor(0, 0);
 ```
 
 ## 3
 
 ### --description--
 
-Use the `CTRL + SHIFT + UP` shortcut to select lines `6 - 4`.
+Use the `CTRL + SHIFT + UP` shortcut to select lines `5 - 3`.
 
 ### --tests--
 
-You should use the `CTRL + SHIFT + UP` shortcut to select lines `6 - 4`.
+You should use the `CTRL + SHIFT + UP` shortcut to select lines `5 - 3`.
 
 ```js
-
+const sel = getSel();
+assert(sel.start.line === 2 && sel.start.character === 0);
+assert(sel.end.line === 4 && sel.end.character === 0);
 ```
 
 ### --seed--
@@ -85,21 +87,21 @@ console.log(myCode + " " + yourCode);
 ### --cmd--
 
 ```js
-placeCursor(0, 0);
+placeCursor(5, 0);
 ```
 
 ## 4
 
 ### --description--
 
-Use the `CTRL + SHIFT + K` shortcut to completely delete lines `6 - 4`.
+Use the `CTRL + SHIFT + K` shortcut to completely delete lines `5 - 3`.
 
 ### --tests--
 
-You should use the `CTRL + SHIFT + K` shortcut to completely delete lines `6 - 4`.
+You should use the `CTRL + SHIFT + K` shortcut to completely delete lines `5 - 3`.
 
 ```js
-
+assert(key === "ctrl+shift+k");
 ```
 
 ### --seed--
@@ -107,7 +109,6 @@ You should use the `CTRL + SHIFT + K` shortcut to completely delete lines `6 - 4
 ```js
 let myCode = "Key";
 let yourCode = "Code";
-console.log(myCode + " " + yourCode);
 let myCode = "Key";
 let yourCode = "Code";
 console.log(myCode + " " + yourCode);
@@ -116,7 +117,7 @@ console.log(myCode + " " + yourCode);
 ### --cmd--
 
 ```js
-placeCursor(0, 0);
+// placeCursor(0, 0);
 ```
 
 ### --description--
@@ -125,10 +126,10 @@ Well done!
 
 ### --tests--
 
-FaIl
+This will always fail.
 
-```md
-test
+```js
+assert(false);
 ```
 
 ### --seed--
@@ -136,11 +137,31 @@ test
 ```js
 let myCode = "Key";
 let yourCode = "Code";
-console.log(myCode + " " + yourCode);
 ```
 
 ### --cmd--
 
 ```js
 placeCursor(0, 0);
+```
+
+## 5
+
+### --description--
+
+Next
+
+### --tests--
+
+Fail
+
+```js
+assert(false);
+```
+
+### --seed--
+
+```js
+let myCode = "Key";
+let yourCode = "Code";
 ```
