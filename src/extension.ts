@@ -49,8 +49,11 @@ export function activate(context: ExtensionContext) {
       overwrite: true,
     });
     workspace.applyEdit(createFile).then(
-      () => {},
+      (res) => {
+        console.log("File created: ", res);
+      },
       (reason) => {
+        console.warn(reason);
         window.showErrorMessage(reason);
       }
     );
