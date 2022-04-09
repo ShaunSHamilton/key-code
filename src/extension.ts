@@ -34,7 +34,7 @@ export function activate(context: ExtensionContext) {
     }
   );
   const URI_OF_TEXT_DOCUMENT = Uri.file(
-    join(workspace.workspaceFolders?.[0].name ?? "./", `key-code.js`)
+    join(workspace.workspaceFolders?.[0]?.uri?.fsPath ?? "./", `key-code.js`)
   );
 
   let disposable = commands.registerCommand("key-code.start", async () => {
