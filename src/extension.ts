@@ -43,12 +43,15 @@ export function activate(context: ExtensionContext) {
     commands.executeCommand("setContext", "key-code.active", true);
 
     panel.webview.html = getWebviewContent(context.extensionPath);
-    workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from("")).then(
-      () => {
-        // console.log(uri);
-      },
-      (err) => {
-        window.showErrorMessage(err);
+
+    const createFile = new WorkspaceEdit();
+    createFile.createFile(URI_OF_TEXT_DOCUMENT, {
+      overwrite: true,
+    });
+    workspace.applyEdit(createFile).then(
+      () => {},
+      (reason) => {
+        window.showErrorMessage(reason);
       }
     );
     runLesson(panel, LESSON);
