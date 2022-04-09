@@ -171,20 +171,19 @@ export function activate(context: ExtensionContext) {
     //   data: result,
     // });
   }
+  /**
+   * Gets the webview/index.html file content
+   */
+  function getWebviewContent(extensionPath: string): string {
+    const webviewHTML = panel.webview.asWebviewUri(
+      Uri.file(join(extensionPath, "src", "webview", "index.html"))
+    );
+    const file = readFileSync(webviewHTML.fsPath, "utf8");
+    return file;
+  }
 }
 
 export function deactivate() {
   commands.executeCommand("setContext", "key-code.active", false);
   window.showInformationMessage("Key Code Deactivated");
-}
-
-/**
- * Gets the webview/index.html file content
- */
-function getWebviewContent(extensionPath: string): string {
-  const webviewHTML = Uri.file(
-    join(extensionPath, "src", "webview", "index.html")
-  );
-  const file = readFileSync(webviewHTML.fsPath, "utf8");
-  return file;
 }
