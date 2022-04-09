@@ -10,7 +10,7 @@ import {
   Position,
   Selection,
 } from "vscode";
-import { readFileSync } from "fs";
+import { readFileSync, appendFile } from "fs";
 import { join } from "path";
 import {
   extractStringFromCode,
@@ -37,35 +37,16 @@ export function activate(context: ExtensionContext) {
     join(workspace.workspaceFolders?.[0].name ?? "./", `key-code.js`)
   );
 
-  let disposable = commands.registerCommand("key-code.start", () => {
-    // TODO: Create a new file to run the lessons on
+  let disposable = commands.registerCommand("key-code.start", async () => {
     window.showInformationMessage("Key Code Activated");
     commands.executeCommand("setContext", "key-code.active", true);
 
     panel.webview.html = getWebviewContent(context.extensionPath);
-
-    const createFile = new WorkspaceEdit();
-    createFile.createFile(
-      URI_OF_TEXT_DOCUMENT,
-      {
-        overwrite: true,
-      },
-      { label: "", needsConfirmation: true }
-    );
-    workspace.applyEdit(createFile).then(
-      (res) => {
-        console.log("File created: ", res);
-        if (!res) {
-          window.showErrorMessage(
-            "Unable to create file to run lessons. Permission error."
-          );
-        }
-      },
-      (reason) => {
-        console.warn(reason);
-        window.showErrorMessage(reason);
+    appendFile(URI_OF_TEXT_DOCUMENT.fsPath, Buffer.from(""), (err) => {
+      if (err) {
+        window.showErrorMessage(err.message);
       }
-    );
+    });
     runLesson(panel, LESSON);
   });
 
