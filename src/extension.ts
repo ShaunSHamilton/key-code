@@ -42,12 +42,14 @@ export function activate(context: ExtensionContext) {
     commands.executeCommand("setContext", "key-code.active", true);
 
     panel.webview.html = getWebviewContent(context.extensionPath);
-    appendFile("key-code.js", Buffer.from(""), (err) => {
+    const ur = new URL(URI_OF_TEXT_DOCUMENT.toString());
+    appendFile(ur, Buffer.from(""), (err) => {
       if (err) {
         window.showErrorMessage(err.message);
+      } else {
+        runLesson(panel, LESSON);
       }
     });
-    runLesson(panel, LESSON);
   });
 
   context.subscriptions.push(
