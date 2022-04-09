@@ -43,8 +43,8 @@ export function activate(context: ExtensionContext) {
     commands.executeCommand("setContext", "key-code.active", true);
 
     panel.webview.html = getWebviewContent(context.extensionPath);
-    workspace.fs.createDirectory(URI_OF_TEXT_DOCUMENT).then(
-      (uri) => {
+    workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from("")).then(
+      () => {
         // console.log(uri);
       },
       (err) => {
