@@ -6,4 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+##[1.0.0](#v1.0.0)
+
+### Added
+
+- Release out of Beta 🚀
+- More lessons
+
+## [Released]
+
+##[0.22.0](#v0.22.0) (2020-04-09)
+
+### Added
+
+- Initial Beta release to Marketplace
+- Includes 4 completed lessons
