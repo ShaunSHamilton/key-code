@@ -43,19 +43,20 @@ export function activate(context: ExtensionContext) {
 
     panel.webview.html = getWebviewContent(context.extensionPath);
     // Test if `./key-code.js` exists
-    const fil = await workspace.fs.stat(URI_OF_TEXT_DOCUMENT);
-    console.log(fil);
-    // Prompt user to create file
-    const createFile = await window.showInformationMessage(
-      "Create file `key-code.js`?",
-      "Yes",
-      "No"
-    );
-    if (createFile === "Yes") {
-      // Create file
-      await workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from(""));
+    try {
+      await workspace.fs.stat(URI_OF_TEXT_DOCUMENT);
+    } catch (err) {
+      // Prompt user to create file
+      const createFile = await window.showInformationMessage(
+        "Create file `key-code.js`?",
+        "Yes",
+        "No"
+      );
+      if (createFile === "Yes") {
+        // Create file
+        await workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from(""));
+      }
     }
-
     runLesson(panel, LESSON);
   });
 
