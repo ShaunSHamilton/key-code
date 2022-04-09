@@ -9,6 +9,7 @@ import {
   WorkspaceEdit,
   Position,
   Selection,
+  Range,
 } from "vscode";
 import { readFileSync, appendFile, mkdir } from "fs";
 import { join, dirname } from "path";
@@ -64,6 +65,10 @@ export function activate(context: ExtensionContext) {
         }
       }
     }
+    // Ensure `key-code.js` is activeTextDocument
+    window.showTextDocument(URI_OF_TEXT_DOCUMENT, {
+      viewColumn: ViewColumn.One,
+    });
     runLesson(panel, LESSON);
   });
 
@@ -122,6 +127,7 @@ export function activate(context: ExtensionContext) {
 
     workspace.openTextDocument(URI_OF_TEXT_DOCUMENT).then((doc) => {
       const edit = new WorkspaceEdit();
+      edit.delete(doc.uri, new Range(0, 0, doc.lineCount, 0));
       edit.insert(doc.uri, new Position(0, 0), extractStringFromCode(seed));
       workspace.applyEdit(edit);
     });
