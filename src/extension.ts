@@ -58,8 +58,8 @@ export function activate(context: ExtensionContext) {
           await workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from(""));
         } catch (er) {
           console.warn(er);
-          window.showErrorMessage(
-            `Failed to create file. Try manually creating it in the root of your workspace.`
+          return window.showErrorMessage(
+            `Failed to create file. Try manually creating it in the root of your workspace. Then, try again.`
           );
         }
       }
