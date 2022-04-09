@@ -54,7 +54,14 @@ export function activate(context: ExtensionContext) {
       );
       if (createFile === "Yes") {
         // Create file
-        await workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from(""));
+        try {
+          await workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from(""));
+        } catch (er) {
+          console.warn(er);
+          window.showErrorMessage(
+            `Failed to create file. Try manually creating it in the root of your workspace.`
+          );
+        }
       }
     }
     runLesson(panel, LESSON);
