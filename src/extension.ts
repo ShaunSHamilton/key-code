@@ -42,29 +42,21 @@ export function activate(context: ExtensionContext) {
     commands.executeCommand("setContext", "key-code.active", true);
 
     panel.webview.html = getWebviewContent(context.extensionPath);
-    // appendFile("./key-code.js", Buffer.from(""), (err) => {
-    //   if (err) {
-    //     window.showErrorMessage(err.message);
-    //   } else {
-    //     runLesson(panel, LESSON);
-    //   }
-    // });
-    const newFileName = "key-code.js";
-    const dir: string = dirname(newFileName);
+    // Test if `./key-code.js` exists
+    const fil = await workspace.fs.stat(URI_OF_TEXT_DOCUMENT);
+    console.log(fil);
+    // Prompt user to create file
+    const createFile = await window.showInformationMessage(
+      "Create file `key-code.js`?",
+      "Yes",
+      "No"
+    );
+    if (createFile === "Yes") {
+      // Create file
+      await workspace.fs.writeFile(URI_OF_TEXT_DOCUMENT, Buffer.from(""));
+    }
 
-    await mkdir(dir, { recursive: true }, (err) => {
-      if (err) {
-        window.showErrorMessage(err.message);
-      } else {
-        appendFile(newFileName, Buffer.from(""), (err) => {
-          if (err) {
-            window.showErrorMessage(err.message);
-          } else {
-            runLesson(panel, LESSON);
-          }
-        });
-      }
-    });
+    runLesson(panel, LESSON);
   });
 
   context.subscriptions.push(
