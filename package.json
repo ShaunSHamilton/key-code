@@ -2,7 +2,7 @@
   "name": "key-code",
   "displayName": "Key Code",
   "description": "An interactive tool to learn VSCode shortcuts",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "engines": {
     "vscode": "^1.65.0"
   },
