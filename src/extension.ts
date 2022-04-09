@@ -90,7 +90,7 @@ export function activate(context: ExtensionContext) {
   async function runLesson(panel: WebviewPanel, lessonNum: number) {
     // Get lesson content
     const projectFile = Uri.file(
-      join(context.extensionPath, "src", "lessons", `editor.md`)
+      join(context.extensionPath, "lessons", `editor.md`)
     );
     const lesson = getLessonFromFile(projectFile.fsPath, lessonNum);
     // @ts-expect-error TODO
@@ -122,7 +122,7 @@ export function activate(context: ExtensionContext) {
   async function runTests(key: string, lessonNum: number) {
     // Get tests
     const projectFile = Uri.file(
-      join(context.extensionPath, "src", "lessons", `editor.md`)
+      join(context.extensionPath, "lessons", `editor.md`)
     );
     const lesson = getLessonFromFile(projectFile.fsPath, lessonNum);
     // @ts-expect-error TODO
@@ -176,7 +176,7 @@ export function activate(context: ExtensionContext) {
    */
   function getWebviewContent(extensionPath: string): string {
     const webviewHTML = panel.webview.asWebviewUri(
-      Uri.file(join(extensionPath, "src", "webview", "index.html"))
+      Uri.file(join(extensionPath, "webview", "index.html"))
     );
     const file = readFileSync(webviewHTML.fsPath, "utf8");
     return file;
