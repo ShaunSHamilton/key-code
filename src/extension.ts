@@ -79,6 +79,10 @@ export function activate(context: ExtensionContext) {
         // Extension keybinding takes priority over default keybinding
         // Execute default keybinding
         if (command) {
+          panel.webview.postMessage({
+            event: "update-keybind",
+            data: `\`\`\`markdown\n${key}\n\`\`\``,
+          });
           commands.executeCommand(command, text).then(() => {
             runTests(key, LESSON);
           });

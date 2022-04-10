@@ -21,3 +21,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Initial Beta release to Marketplace
 - Includes 4 completed lessons
+
+##[0.26.0](#v0.26.0) (2020-04-10)
+
+### Changed
+
+- Webview Styles
+- Converted `index.html` into one inline file the hard way 🤦‍♂️
+
+### Added
+
+- Registered keybinding to webview
+- Deactivate command
