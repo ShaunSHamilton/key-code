@@ -6,6 +6,13 @@
 
 Use the `CTRL + SHIFT + DOWN` shortcut to select lines `1` and `2`.
 
+```js
+// h: 1-2
+let myCode = "Key";
+let yourCode = "Code";
+console.log(myCode + " " + yourCode);
+```
+
 ### --tests--
 
 You should use the `CTRL + SHIFT + DOWN` shortcut to select lines `1 - 2`.
@@ -63,6 +70,15 @@ console.log(myCode + " " + yourCode);
 ### --description--
 
 Use the `CTRL + SHIFT + UP` shortcut to select lines `5 - 3`.
+
+```js
+// h: 3-5
+let myCode = "Key";
+let yourCode = "Code";
+let myCode = "Key";
+let yourCode = "Code";
+console.log(myCode + " " + yourCode);
+```
 
 ### --tests--
 

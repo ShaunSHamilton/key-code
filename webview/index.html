@@ -13,37 +13,189 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
+      font-family: monospace;
+    }
+    /* Select all elements with an id attribute */
+    [id] {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     #description {
+      max-width: 80vw;
       min-height: 100px;
       margin: 1rem auto;
       text-align: center;
     }
+    .registered-keybind {
+      max-width: 80vw;
+      min-height: 100px;
+      background-color: #007000;
+      margin: 1rem auto;
+      text-align: center;
+    }
+    #keybind {
+      margin: auto 0;
+      font-size: 1.8rem;
+    }
+
     #tests {
+      max-width: 80vw;
       min-height: 100px;
       margin: 0 auto;
       text-align: center;
     }
+    .line-highlight {
+      background: linear-gradient(
+        to right,
+        #66d9ef4f 70%,
+        #66d9ef4f
+      ) !important;
+    }
   </style>
   <body>
     <div id="description"></div>
+    <div class="registered-keybind">
+      Registered Keybind:
+      <div id="keybind"></div>
+    </div>
     <div id="tests"></div>
   </body>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism-okaidia.min.css"
+    integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"
+    integrity="sha512-/Swpp6aCQ0smuZ+zpklJqMClcUlvxhpLf9aAcM7JjJrj2waCU4dikm3biOtMVAflOOeniW9qzaNXNrbOAOWFCw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-highlight/prism-line-highlight.min.js"
+    integrity="sha512-93uCmm0q+qO5Lb1huDqr7tywS8A2TFA+1/WHvyiWaK6/pvsFl6USnILagntBx8JnVbQH5s3n0vQZY6xNthNfKA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-highlight/prism-line-highlight.min.css"
+    integrity="sha512-nXlJLUeqPMp1Q3+Bd8Qds8tXeRVQscMscwysJm821C++9w6WtsFbJjPenZ8cQVMXyqSAismveQJc0C1splFDCA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.js"
+    integrity="sha512-dubtf8xMHSQlExGRQ5R7toxHLgSDZ0K7AunqPWHXmJQ8XyVIG19S1T95gBxlAeGOK02P4Da2RTnQz0Za0H0ebQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.css"
+    integrity="sha512-cbQXwDFK7lj2Fqfkuxbo5iD1dSbLlJGXGpfTDqbggqjHJeyzx88I3rfwjS38WJag/ihH7lzuGlGHpDBymLirZQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"
+    integrity="sha512-hzyXu3u+VDu/7vpPjRKFp9w33Idx7pWWNazPm+aCMRu26yZXFCby1gn1JxevVv3LDwnSbyKrvLo3JNdi4Qx1ww=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
   <script>
+    marked.use({
+      gfm: true,
+      breaks: true,
+    });
+    const linesToHighlight = [];
+    marked.setOptions({
+      highlight: (code, lang) => {
+        if (Prism.languages[lang]) {
+          // If `code` matches /^\/\/ h:[^\n]*/, then strip first line
+          const mat = code.match(/^\/\/ h:([^\n]*)\n/);
+          if (mat) {
+            linesToHighlight.push(mat[1]);
+            code = code.replace(/^\/\/ h:[^\n]*\n/, "");
+          }
+          return Prism.highlight(code, Prism.languages[lang], lang);
+        } else {
+          return code;
+        }
+      },
+    });
+
     const descriptionEl = document.querySelector("#description");
     const testsEl = document.querySelector("#tests");
+    const keybindEl = document.querySelector("#keybind");
     window.addEventListener("message", (e) => {
       const { event, data } = e.data;
+      const parsedData = parseMarkdown(data);
       switch (event) {
         case "update-description":
-          descriptionEl.innerHTML = data;
+          descriptionEl.innerHTML = parsedData;
           break;
         case "update-tests":
-          testsEl.innerHTML = data;
+          testsEl.innerHTML = parsedData;
+          break;
+        case "update-keybind":
+          keybindEl.innerHTML = parsedData;
           break;
         default:
           break;
       }
+      document.querySelectorAll("pre").forEach((pre, i) => {
+        const line = linesToHighlight[i];
+        if (line) {
+          pre.classList.add("line-highlight");
+          pre.setAttribute("data-line", line);
+        }
+      });
     });
+
+    function parseMarkdown(text) {
+      return marked.parse(text);
+    }
+
+    //     const testData = `
+    // Use the \`CTRL + SHIFT + K\` shortcut to delete the selected lines.
+
+    // \`\`\`javascript
+    // // h: 1-2
+    // const a = 2;
+    // const b = 3;
+    // const c = a + b;
+    // \`\`\`
+
+    // `;
+    //     const testTest = `
+    // - You should use the \`CTRL + SHIFT + K\` shortcut to delete the selected lines.
+    // `;
+    //     const testKey = `
+    // \`\`\`markdown
+    // CTRL + SHIFT + K
+    // \`\`\`
+    // `;
+
+    //     window.dispatchEvent(
+    //       new MessageEvent("message", {
+    //         data: { data: testData, event: "update-description" },
+    //       })
+    //     );
+    //     window.dispatchEvent(
+    //       new MessageEvent("message", {
+    //         data: { data: testTest, event: "update-tests" },
+    //       })
+    //     );
+    //     window.dispatchEvent(
+    //       new MessageEvent("message", {
+    //         data: { data: testKey, event: "update-keybind" },
+    //       })
+    // );
   </script>
 </html>
