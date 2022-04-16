@@ -103,7 +103,7 @@ console.log(myCode + " " + yourCode);
 ### --cmd--
 
 ```js
-placeCursor(5, 0);
+placeCursor(4, 0);
 ```
 
 ## 4
@@ -136,6 +136,8 @@ console.log(myCode + " " + yourCode);
 // placeCursor(0, 0);
 ```
 
+## 5
+
 ### --description--
 
 Well done!
@@ -161,7 +163,7 @@ let yourCode = "Code";
 placeCursor(0, 0);
 ```
 
-## 5
+## 6
 
 ### --description--
 
