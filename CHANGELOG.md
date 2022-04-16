@@ -33,3 +33,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Registered keybinding to webview
 - Deactivate command
+
+##[0.27.0](#v0.27.0) (2020-04-16)
+
+### Fixed
+
+- Actually call the `deactivate` function 🤦‍♂️
+- Added `try...catch` around Webview update to allow the VSCode command to always be called

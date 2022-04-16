@@ -79,13 +79,17 @@ export function activate(context: ExtensionContext) {
         // Extension keybinding takes priority over default keybinding
         // Execute default keybinding
         if (command) {
-          panel.webview.postMessage({
-            event: "update-keybind",
-            data: `\`\`\`markdown\n${key}\n\`\`\``,
-          });
-          commands.executeCommand(command, text).then(() => {
-            runTests(key, LESSON);
-          });
+          try {
+            panel.webview.postMessage({
+              event: "update-keybind",
+              data: `\`\`\`markdown\n${key}\n\`\`\``,
+            });
+          } catch (e) {
+          } finally {
+            commands.executeCommand(command, text).then(() => {
+              runTests(key, LESSON);
+            });
+          }
         }
       }
     )
@@ -193,6 +197,10 @@ export function activate(context: ExtensionContext) {
     //   event: "update-tests",
     //   data: result,
     // });
+
+    context.subscriptions.push(
+      commands.registerCommand("key-code.deactivate", deactivate)
+    );
   }
   /**
    * Gets the webview/index.html file content

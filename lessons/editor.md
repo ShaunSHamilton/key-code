@@ -41,7 +41,7 @@ placeCursor(0, 0);
 
 ### --description--
 
-Use the `SHIFT + ALT + DOWN` shortcut to copy the seleted lines down.
+Reselect lines `1 - 2`. Then, use the `SHIFT + ALT + DOWN` shortcut to copy the seleted lines down.
 
 ### --tests--
 
@@ -62,7 +62,7 @@ console.log(myCode + " " + yourCode);
 ### --cmd--
 
 ```js
-// placeCursor(0, 0);
+placeCursor(0, 0);
 ```
 
 ## 3
@@ -110,7 +110,7 @@ placeCursor(5, 0);
 
 ### --description--
 
-Use the `CTRL + SHIFT + K` shortcut to completely delete lines `5 - 3`.
+Reselect lines `5 - 3`. Then, use the `CTRL + SHIFT + K` shortcut to completely delete lines `5 - 3`.
 
 ### --tests--
 
